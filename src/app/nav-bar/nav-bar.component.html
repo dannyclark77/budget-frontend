@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">App</a>
+  <a [routerLink]="['']" class="navbar-brand">App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapsed" aria-controls="navbarCollapsed" aria-expanded="false" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapsed" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Purchases</a>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a [routerLink]="['/purchase']" class="nav-link">Purchases</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Budget</a>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a [routerLink]="['']" class="nav-link">Budget</a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
@@ -25,3 +25,4 @@
     </ul>
   </div>
 </nav>
+
