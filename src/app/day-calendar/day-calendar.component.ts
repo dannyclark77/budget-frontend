@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DayCalendarComponent implements OnInit {
 
+  model;
+
   constructor() { }
 
   ngOnInit() {

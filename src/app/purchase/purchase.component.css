@@ -1,0 +1,12 @@
+.top {
+    align-items: center;
+}
+
+.header {
+    clear: both;
+    margin-top: 10px;
+}
+
+.row {
+    margin-top: 20px;
+}
