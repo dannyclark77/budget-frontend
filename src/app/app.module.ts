@@ -9,6 +9,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { BudgetComponent } from './budget/budget.component';
+import { DayCalendarComponent } from './day-calendar/day-calendar.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { BudgetComponent } from './budget/budget.component';
     HomeComponent,
     NavBarComponent,
     PurchaseComponent,
-    BudgetComponent
+    BudgetComponent,
+    DayCalendarComponent
   ],
   imports: [
     BrowserModule,
