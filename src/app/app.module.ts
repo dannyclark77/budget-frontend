@@ -11,6 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { BudgetComponent } from './budget/budget.component';
 import { DayCalendarComponent } from './day-calendar/day-calendar.component';
+import { PurchaseService } from './purchase.service';
+import { ApiService } from './api.service';
 
 
 @NgModule({
@@ -28,7 +30,10 @@ import { DayCalendarComponent } from './day-calendar/day-calendar.component';
     FormsModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    PurchaseService,
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
