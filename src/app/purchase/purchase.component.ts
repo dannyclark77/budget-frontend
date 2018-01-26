@@ -20,7 +20,7 @@ export class PurchaseComponent implements OnInit {
     'Fun'
   ]
 
-  purchaseform: FormGroup
+  purchaseform: FormGroup;
 
   constructor(
     private purchaseService: PurchaseService,
@@ -44,6 +44,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   open(content) {
+    console.log('open modal', content);
     this.modalRef = this.modalService.open(content)
   }
 

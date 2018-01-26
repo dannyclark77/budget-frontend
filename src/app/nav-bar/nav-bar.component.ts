@@ -13,4 +13,8 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  open() {
+    console.log('open sign up');
+  }
+
 }

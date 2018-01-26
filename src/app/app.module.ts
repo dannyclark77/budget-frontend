@@ -14,6 +14,7 @@ import { BudgetComponent } from './budget/budget.component';
 import { DayCalendarComponent } from './day-calendar/day-calendar.component';
 import { PurchaseService } from './purchase.service';
 import { ApiService } from './api.service';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ApiService } from './api.service';
     NavBarComponent,
     PurchaseComponent,
     BudgetComponent,
-    DayCalendarComponent
+    DayCalendarComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
