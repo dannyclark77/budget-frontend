@@ -15,6 +15,7 @@ import { DayCalendarComponent } from './day-calendar/day-calendar.component';
 import { PurchaseService } from './purchase.service';
 import { ApiService } from './api.service';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { AuthService } from './auth/auth.service';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
   ],
   providers: [
     PurchaseService,
-    ApiService
+    ApiService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
