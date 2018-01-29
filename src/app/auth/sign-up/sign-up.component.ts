@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
 
   onSignUp(credentials) {
     console.log('on sign up ran', credentials);
-    // this.authService.signUp(credentials.email, credentials.password);
+    this.authService.signUp(credentials.email, credentials.password);
   }
 
 }
