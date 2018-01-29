@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SignUpComponent } from '../auth/sign-up/sign-up.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+
+  @ViewChild('modal') modal: SignUpComponent;
+
   isCollapsed = true;
 
   constructor() { }
@@ -13,8 +17,8 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  open() {
-    console.log('open sign up');
+  openModal() {
+    this.modal.open();
   }
 
 }

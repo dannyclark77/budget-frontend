@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseService } from '../purchase.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap/';
 import { FormGroup, FormControl } from '@angular/forms';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 
 @Component({
   selector: 'app-purchase',
