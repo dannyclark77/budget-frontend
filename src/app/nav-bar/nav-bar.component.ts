@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SignUpComponent } from '../auth/sign-up/sign-up.component';
+import { SignInComponent } from '../auth/sign-in/sign-in.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,8 @@ import { SignUpComponent } from '../auth/sign-up/sign-up.component';
 })
 export class NavBarComponent implements OnInit {
 
-  @ViewChild('modal') modal: SignUpComponent;
+  @ViewChild('signUpModal') signUpModal: SignUpComponent;
+  @ViewChild('signInModal') signInModal: SignInComponent;
 
   isCollapsed = true;
 
@@ -17,8 +19,12 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  openModal() {
-    this.modal.open();
+  openSignUpModal() {
+    this.signUpModal.open();
+  }
+
+  openSignInModal() {
+    this.signInModal.open();
   }
 
 }

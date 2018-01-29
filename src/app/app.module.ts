@@ -17,6 +17,7 @@ import { ApiService } from './api.service';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { AuthService } from './auth/auth.service';
 import { AuthApiService } from './auth/auth-api.service';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AuthApiService } from './auth/auth-api.service';
     PurchaseComponent,
     BudgetComponent,
     DayCalendarComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,24 @@
+<ng-template #signInModal let-c="close">
+    <div class="modal-header">
+      <h4 class="modal-title">Sign In to Proceed</h4>
+      <button type="button" class="close" aria-label="Close" (click)="c()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #formRef="ngForm" class="form-signup" (ngSubmit)='onSignIn(formRef.value)'>
+        <div class='form-group'>
+          <label for="inputEmail">Email Address</label>
+          <input type='email' name='email' id='inputEmail' class='form-control' placeholder='Enter Email Address' [(ngModel)]='email' #emailRef='ngModel'>        
+        </div>
+        <div class='form-group'>
+          <label for="inputPassword">Password</label>
+          <input type='password' name='password' id='inputPassword' class='form-control' placeholder='Enter Password' [(ngModel)]='password' #passwordRef='ngModel'>       
+        </div>
+        <div class="modal-footer">
+          <input type='submit' class='btn btn-primary' value='Submit'>                    
+          <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>

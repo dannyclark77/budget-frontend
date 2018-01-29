@@ -16,8 +16,8 @@
       <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
         <a class="nav-link dropdown-toggle" id="dropdown01" ngbDropdownToggle>User</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>
-          <button class="dropdown-item" (click)="openModal()">Sign Up</button>
-          <a class="dropdown-item" href="#">Sign In</a>
+          <button class="dropdown-item" (click)="openSignUpModal()">Sign Up</button>
+          <button class="dropdown-item" (click)="openSignInModal()">Sign In</button>
           <a class="dropdown-item" href="#">Change Password</a>
           <a class="dropdown-item" href="#">Logout</a>
         </div>
@@ -25,5 +25,6 @@
     </ul>
   </div>
 </nav>
-<app-sign-up #modal></app-sign-up>
+<app-sign-up #signUpModal></app-sign-up>
+<app-sign-in #signInModal></app-sign-in>
 
