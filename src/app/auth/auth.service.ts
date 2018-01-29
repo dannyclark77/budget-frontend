@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../api.service';
+import { AuthApiService } from './auth-api.service';
 
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    private apiService: ApiService
+    private authApiService: AuthApiService
   ) { 
-    this.apiService.loggedIn$.subscribe(
+    this.authApiService.loggedIn$.subscribe(
       loggedIn => {
         if (loggedIn === true) {
           console.log('logged in auth service is', loggedIn);
@@ -18,7 +18,7 @@ export class AuthService {
       }
     )
 
-    this.apiService.signedUp$.subscribe(
+    this.authApiService.signedUp$.subscribe(
       signedUp => {
         if (signedUp === true) {
           console.log('signed up in auth service is', signedUp);
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   signUp(username, password) {
-    this.apiService.signUp(username, password).subscribe(
+    this.authApiService.signUp(username, password).subscribe(
       signedUp => {
         if (signedUp) {
           this.login(username, password);
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   login(username, password) {
-    this.apiService.login(username, password).subscribe(
+    this.authApiService.login(username, password).subscribe(
       loggedIn => {
         if (loggedIn) {
           return true

@@ -16,6 +16,7 @@ import { PurchaseService } from './purchase.service';
 import { ApiService } from './api.service';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { AuthService } from './auth/auth.service';
+import { AuthApiService } from './auth/auth-api.service';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { AuthService } from './auth/auth.service';
   providers: [
     PurchaseService,
     ApiService,
-    AuthService
+    AuthService,
+    AuthApiService
   ],
   bootstrap: [AppComponent]
 })
