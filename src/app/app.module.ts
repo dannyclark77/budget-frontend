@@ -18,6 +18,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { AuthService } from './auth/auth.service';
 import { AuthApiService } from './auth/auth-api.service';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
     BudgetComponent,
     DayCalendarComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

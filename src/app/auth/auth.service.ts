@@ -27,6 +27,16 @@ export class AuthService {
         }
       }
     )
+
+    this.authApiService.changedPassword$.subscribe(
+      changedPassword => {
+        if (changedPassword === true) {
+          console.log('changed password ', changedPassword);
+        } else {
+          console.log('did not change password ', changedPassword);
+        }
+      }
+    )
   }
 
   signUp(username, password) {
@@ -46,6 +56,18 @@ export class AuthService {
     this.authApiService.login(username, password).subscribe(
       loggedIn => {
         if (loggedIn) {
+          return true
+        } else {
+          return false
+        }
+      }
+    )
+  }
+
+  changePassword(oldPassword, newPassword) {
+    this.authApiService.changePassword(oldPassword, newPassword).subscribe(
+      changedPassword => {
+        if (changedPassword) {
           return true
         } else {
           return false

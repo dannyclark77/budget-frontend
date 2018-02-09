@@ -18,7 +18,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>
           <button class="dropdown-item" (click)="openSignUpModal()">Sign Up</button>
           <button class="dropdown-item" (click)="openSignInModal()">Sign In</button>
-          <a class="dropdown-item" href="#">Change Password</a>
+          <button class="dropdown-item" (click)="openChangePasswordModal()">Change Password</button>
           <a class="dropdown-item" href="#">Logout</a>
         </div>
       </li>
@@ -27,4 +27,5 @@
 </nav>
 <app-sign-up #signUpModal></app-sign-up>
 <app-sign-in #signInModal></app-sign-in>
+<app-change-password #changePasswordModal></app-change-password>
 
