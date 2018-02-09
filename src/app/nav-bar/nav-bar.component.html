@@ -19,7 +19,7 @@
           <button class="dropdown-item" (click)="openSignUpModal()">Sign Up</button>
           <button class="dropdown-item" (click)="openSignInModal()">Sign In</button>
           <button class="dropdown-item" (click)="openChangePasswordModal()">Change Password</button>
-          <a class="dropdown-item" href="#">Logout</a>
+          <button class="dropdown-item" (click)="logout()">Logout</button>
         </div>
       </li>
     </ul>
@@ -28,4 +28,3 @@
 <app-sign-up #signUpModal></app-sign-up>
 <app-sign-in #signInModal></app-sign-in>
 <app-change-password #changePasswordModal></app-change-password>
-

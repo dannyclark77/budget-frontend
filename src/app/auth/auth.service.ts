@@ -76,4 +76,9 @@ export class AuthService {
     )
   }
 
+  logout() {
+    localStorage.removeItem('auth_token');
+    console.log('auth_token is ', localStorage.getItem('auth_token'));
+  }
+
 }

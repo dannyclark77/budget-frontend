@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SignUpComponent } from '../auth/sign-up/sign-up.component';
 import { SignInComponent } from '../auth/sign-in/sign-in.component';
 import { ChangePasswordComponent } from '../auth/change-password/change-password.component';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,7 +17,7 @@ export class NavBarComponent implements OnInit {
 
   isCollapsed = true;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -31,6 +32,10 @@ export class NavBarComponent implements OnInit {
 
   openChangePasswordModal() {
     this.changePasswordModal.open();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }
