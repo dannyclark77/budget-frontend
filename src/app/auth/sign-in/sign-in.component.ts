@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AuthApiService } from '../auth-api.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,13 +15,24 @@ export class SignInComponent implements OnInit {
   modalRef: NgbModalRef;
 
   open() {
-    this.modalService.open(this.signInModal);
+    this.modalRef = this.modalService.open(this.signInModal);
   }
 
   constructor(
     private authService: AuthService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private authApiService: AuthApiService,
+  ) { 
+    this.authApiService.loggedIn$.subscribe(
+      loggedIn => {
+        if (loggedIn === true) {
+          this.modalRef.close();
+        } else {
+          console.log('loggedIn not true', loggedIn);
+        }
+      }
+    )
+  }
 
   ngOnInit() {
   }

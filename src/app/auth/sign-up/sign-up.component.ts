@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap/';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { AuthApiService } from '../auth-api.service';
 
 
 @Component({
@@ -16,13 +17,24 @@ export class SignUpComponent implements OnInit {
   modalRef: NgbModalRef;
 
   open() {
-    this.modalService.open(this.signUpModal);
+    this.modalRef = this.modalService.open(this.signUpModal);
   }
 
   constructor(
     private modalService: NgbModal,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private authApiService: AuthApiService
+  ) {
+    this.authApiService.signedUp$.subscribe(
+      signedUp => {
+        if (signedUp === true) {
+          this.modalRef.close();
+        } else {
+          console.log('signed Up not true', signedUp);
+        }
+      }
+    )
+  }
 
   ngOnInit() {
   }

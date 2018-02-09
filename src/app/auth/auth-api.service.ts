@@ -35,8 +35,8 @@ export class AuthApiService {
           console.log(res);
           if (res.ok) {
             res = res.json();
-            this.token = res.token;
-            localStorage.setItem('auth_token', res.token);
+            this.token = res.user.token;
+            localStorage.setItem('auth_token', this.token);
             this.signedUpSource.next(true);
             return true
           } else {

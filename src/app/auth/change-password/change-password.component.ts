@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AuthApiService } from '../auth-api.service';
 
 @Component({
   selector: 'app-change-password',
@@ -14,13 +15,24 @@ export class ChangePasswordComponent implements OnInit {
   modalRef: NgbModalRef;
 
   open() {
-    this.modalService.open(this.changePasswordModal);
+    this.modalRef = this.modalService.open(this.changePasswordModal);
   }
 
   constructor(
     private authService: AuthService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private authApiService: AuthApiService
+  ) { 
+    this.authApiService.changedPassword$.subscribe(
+      changedPassword => {
+        if (changedPassword === true) {
+          this.modalRef.close();
+        } else {
+          console.log('did not change password ', changedPassword);
+        }
+      }
+    )
+  }
 
   ngOnInit() {
   }
