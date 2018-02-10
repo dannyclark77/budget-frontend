@@ -7,7 +7,7 @@ export class MessageService {
   message = {
     type:'success',
     body:'success Oh yea it did',
-    messageClosed: false
+    messageClosed: true
   }
   
   private messageSource = new BehaviorSubject(this.message);
