@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form #formRef="ngForm" class="form-signup" (ngSubmit)='onSignUp(formRef.value)'>
+      <form #formRef="ngForm" class="form-signup" (ngSubmit)='onSignUp(formRef, formRef.value)'>
         <div class='form-group'>
           <label for="inputEmail">Email Address</label>
           <input type='email' name='email' id='inputEmail' class='form-control' placeholder='Enter Email Address' [(ngModel)]='email' #emailRef='ngModel'>        

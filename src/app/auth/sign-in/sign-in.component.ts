@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthApiService } from '../auth-api.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,7 @@ import { AuthApiService } from '../auth-api.service';
 export class SignInComponent implements OnInit {
 
   @ViewChild('signInModal') signInModal: any;
-
+  form: NgForm;
   modalRef: NgbModalRef;
 
   open() {
@@ -26,6 +27,7 @@ export class SignInComponent implements OnInit {
     this.authApiService.loggedIn$.subscribe(
       loggedIn => {
         if (loggedIn === true) {
+          this.form.reset();
           this.modalRef.close();
         } else {
           console.log('loggedIn not true', loggedIn);
@@ -37,8 +39,9 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignIn(credentials) {
+  onSignIn(form: NgForm, credentials) {
     this.authService.login(credentials.email, credentials.password);
+    this.form = form;
   }
 
 }

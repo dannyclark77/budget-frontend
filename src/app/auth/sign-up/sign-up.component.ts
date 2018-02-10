@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap/';
-import { FormGroup, FormControl } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { AuthApiService } from '../auth-api.service';
 
@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
 
   @ViewChild('signUpModal') signUpModal: any;
 
+  form: NgForm;
   modalRef: NgbModalRef;
 
   open() {
@@ -28,6 +29,7 @@ export class SignUpComponent implements OnInit {
     this.authApiService.signedUp$.subscribe(
       signedUp => {
         if (signedUp === true) {
+          this.form.reset();
           this.modalRef.close();
         } else {
           console.log('signed Up not true', signedUp);
@@ -39,9 +41,10 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignUp(credentials) {
+  onSignUp(form: NgForm, credentials) {
     console.log('on sign up ran', credentials);
     this.authService.signUp(credentials.email, credentials.password);
+    this.form = form;
   }
 
 }
