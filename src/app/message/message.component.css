@@ -1,0 +1,17 @@
+:host {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+}
+
+.alert {
+    margin-bottom: 0 !important;
+    display: inline-block;
+    height: 45px;
+    line-height: 120%;
+    padding: 12px 20px 10px;
+}
+
+.messages {
+    text-align: center;
+}

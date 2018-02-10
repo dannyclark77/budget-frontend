@@ -19,6 +19,8 @@ import { AuthService } from './auth/auth.service';
 import { AuthApiService } from './auth/auth-api.service';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { MessageComponent } from './message/message.component';
+import { MessageService } from './message.service';
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { ChangePasswordComponent } from './auth/change-password/change-password.
     DayCalendarComponent,
     SignUpComponent,
     SignInComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { ChangePasswordComponent } from './auth/change-password/change-password.
     PurchaseService,
     ApiService,
     AuthService,
-    AuthApiService
+    AuthApiService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

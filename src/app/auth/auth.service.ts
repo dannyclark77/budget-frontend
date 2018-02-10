@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
+import { MessageService } from '../message.service';
 
 
 @Injectable()
 export class AuthService {
 
   constructor(
-    private authApiService: AuthApiService
+    private authApiService: AuthApiService,
+    private messageService: MessageService
   ) { 
     this.authApiService.loggedIn$.subscribe(
       loggedIn => {
-        if (loggedIn === true) {
-          console.log('logged in auth service is', loggedIn);
+        if(loggedIn === true){
+          this.messageService.addMessage('success','Successfully logged in!', 2000);
+        }
+        else if(loggedIn === 400) {
+          this.messageService.addMessage('danger','Login failed. Check username and password.', 4000);
+        }
+        else if(loggedIn === 401) {
+          this.messageService.addMessage('danger','Login failed. Access is denied due to invalid credentials.', 4000);
         } else {
-          console.log('loggedIn not true', loggedIn);
+          this.messageService.addMessage('danger','Login failed. Please try again.', 4000);
         }
       }
     )
@@ -21,9 +29,15 @@ export class AuthService {
     this.authApiService.signedUp$.subscribe(
       signedUp => {
         if (signedUp === true) {
-          console.log('signed up in auth service is', signedUp);
+          this.messageService.addMessage('success','Successfully signed up!', 2000);
+
+        } else if(signedUp === 400) {
+          this.messageService.addMessage('danger','Signup failed. Please check email and password.', 4000);
+
+        } else if(signedUp === 401) {
+          this.messageService.addMessage('danger','Signup failed. Access is denied due to invalid credentials.', 4000);
         } else {
-          console.log('signed Up not true', signedUp);
+          this.messageService.addMessage('danger','Signup failed. Please try again.', 4000);
         }
       }
     )
@@ -31,9 +45,13 @@ export class AuthService {
     this.authApiService.changedPassword$.subscribe(
       changedPassword => {
         if (changedPassword === true) {
-          console.log('changed password ', changedPassword);
+          this.messageService.addMessage('success', 'Successfully changed password!', 2000);
+        } else if(changedPassword === 400) {
+          this.messageService.addMessage('danger', 'Change Password failed. Please check passwords.', 4000);
+        } else if (changedPassword === 401) {
+          this.messageService.addMessage('danger', 'Change Password failed. Access is denied due to invalid credentials.', 4000);
         } else {
-          console.log('did not change password ', changedPassword);
+          this.messageService.addMessage('danger', 'Change Password failed. Please try again.', 4000);
         }
       }
     )

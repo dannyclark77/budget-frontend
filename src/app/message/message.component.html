@@ -1,0 +1,3 @@
+<ngb-alert *ngIf='!message.messageClosed' 
+class='messages' type={{message?.type}} 
+(close)='message.messageClosed = true'>{{message?.body}}</ngb-alert>
