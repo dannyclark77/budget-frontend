@@ -95,8 +95,12 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
-    console.log('auth_token is ', localStorage.getItem('auth_token'));
+    if (localStorage.getItem('auth_token')) {
+      localStorage.removeItem('auth_token');
+      this.messageService.addMessage('success', 'Successfully signed out!', 2000);      
+    } else {
+      this.messageService.addMessage('danger', 'Must be signed in to log out', 4000);
+    }
   }
 
 }
