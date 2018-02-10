@@ -16,10 +16,10 @@
       <li class="nav-item dropdown" ngbDropdown placement="bottom-right">
         <a class="nav-link dropdown-toggle" id="dropdown01" ngbDropdownToggle>User</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>
-          <button class="dropdown-item" (click)="openSignUpModal()">Sign Up</button>
-          <button class="dropdown-item" (click)="openSignInModal()">Sign In</button>
-          <button class="dropdown-item" (click)="openChangePasswordModal()">Change Password</button>
-          <button class="dropdown-item" (click)="logout()">Logout</button>
+          <button *ngIf='!isAuthenticated' class="dropdown-item" (click)="openSignUpModal()">Sign Up</button>
+          <button *ngIf='!isAuthenticated' class="dropdown-item" (click)="openSignInModal()">Sign In</button>
+          <button *ngIf='isAuthenticated' class="dropdown-item" (click)="openChangePasswordModal()">Change Password</button>
+          <button *ngIf='isAuthenticated' class="dropdown-item" (click)="logout()">Logout</button>
         </div>
       </li>
     </ul>

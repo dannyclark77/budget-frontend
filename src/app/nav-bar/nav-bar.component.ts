@@ -16,8 +16,13 @@ export class NavBarComponent implements OnInit {
   @ViewChild('changePasswordModal') changePasswordModal: ChangePasswordComponent;
 
   isCollapsed = true;
+  isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { 
+    authService.isAuthenticated$.subscribe(
+      auth => this.isAuthenticated = auth
+    );
+  }
 
   ngOnInit() {
   }

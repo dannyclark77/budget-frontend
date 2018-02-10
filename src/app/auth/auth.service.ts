@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { MessageService } from '../message.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
 export class AuthService {
+
+  isAuthenticated: boolean = false;
+
+  private authenticatedSource = new BehaviorSubject<boolean>(this.isAuthenticated);
+  isAuthenticated$ = this.authenticatedSource.asObservable();
 
   constructor(
     private authApiService: AuthApiService,
@@ -74,6 +80,8 @@ export class AuthService {
     this.authApiService.login(username, password).subscribe(
       loggedIn => {
         if (loggedIn) {
+          this.isAuthenticated = true;
+          this.authenticatedSource.next(this.isAuthenticated);
           return true
         } else {
           return false
@@ -97,6 +105,8 @@ export class AuthService {
   logout() {
     if (localStorage.getItem('auth_token')) {
       localStorage.removeItem('auth_token');
+      this.isAuthenticated = false;
+      this.authenticatedSource.next(this.isAuthenticated);
       this.messageService.addMessage('success', 'Successfully signed out!', 2000);      
     } else {
       this.messageService.addMessage('danger', 'Must be signed in to log out', 4000);
