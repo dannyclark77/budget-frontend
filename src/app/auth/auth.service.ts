@@ -105,6 +105,7 @@ export class AuthService {
   logout() {
     if (localStorage.getItem('auth_token')) {
       localStorage.removeItem('auth_token');
+      localStorage.removeItem('user_id');
       this.isAuthenticated = false;
       this.authenticatedSource.next(this.isAuthenticated);
       this.messageService.addMessage('success', 'Successfully signed out!', 2000);      

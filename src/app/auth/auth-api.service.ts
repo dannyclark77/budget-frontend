@@ -64,6 +64,7 @@ export class AuthApiService {
           if (res.ok) {
             res = res.json();
             this.token = res.user.token;
+            localStorage.setItem('user_id', res.user.id);
             localStorage.setItem('auth_token', this.token);
             this.loggedInSource.next(true);
             return true

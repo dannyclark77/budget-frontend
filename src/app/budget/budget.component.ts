@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BudgetService } from '../budget.service';
 
 @Component({
   selector: 'app-budget',
@@ -13,7 +14,8 @@ export class BudgetComponent implements OnInit {
   budgetform: FormGroup;
 
   constructor(
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private budgetService: BudgetService
   ) { }
 
   ngOnInit() {
@@ -25,8 +27,11 @@ export class BudgetComponent implements OnInit {
 
   onNewCategory() {
     console.log('form submitted', this.budgetform.value);
+    let data = this.budgetform.value;
+    console.log('data is ', data);
     this.budgetform.reset();
     this.modalRef.close();
+    this.budgetService.newCategory(data);
   }
 
   open(content) {

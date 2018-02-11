@@ -21,6 +21,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './message.service';
+import { BudgetService } from './budget.service';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { MessageService } from './message.service';
     ApiService,
     AuthService,
     AuthApiService,
-    MessageService
+    MessageService,
+    BudgetService
   ],
   bootstrap: [AppComponent]
 })

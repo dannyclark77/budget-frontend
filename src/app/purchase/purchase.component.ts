@@ -37,9 +37,10 @@ export class PurchaseComponent implements OnInit {
 
   onNewPurchase() {
     console.log('form submitted', this.purchaseform.value);
+    let data = this.purchaseform.value;
     this.purchaseform.reset();
     this.modalRef.close()
-    // this.purchaseService.newPurchase(data)
+    this.purchaseService.newPurchase(data)
   }
 
   open(content) {
