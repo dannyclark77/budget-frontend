@@ -11,4 +11,8 @@ export class BudgetService {
     this.api.createCategory(category);
   }
 
+  getBudgetCategories() {
+    this.api.getBudgetCategories();
+  }
+
 }

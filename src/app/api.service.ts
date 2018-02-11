@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../environments/environment';
 import { Observable, Subject } from 'rxjs';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,6 +11,9 @@ const api_url = environment.apiUrl;
 
 @Injectable()
 export class ApiService {
+
+  private budgetEntries = new Subject();
+  budgetEntries$ = this.budgetEntries.asObservable();
 
   constructor(
     private http: Http
@@ -47,6 +49,25 @@ export class ApiService {
     createdCategory.subscribe(
       res => {
         console.log('res is ', res)
+      }
+    )
+  }
+
+  getBudgetCategories() {
+    const params = {user_id: localStorage.getItem('user_id')}
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    headers.append("Authorization", `Token ${token}`);
+    let options = new RequestOptions({ headers: headers, params: params });
+
+    const gotCategories = this.http
+      .get(api_url + 'categories', options)
+      .catch(this.handleError);
+
+    gotCategories.subscribe(
+      res => {
+        res = res.json();
+        this.budgetEntries.next(res);
       }
     )
   }
