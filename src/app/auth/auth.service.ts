@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { MessageService } from '../message.service';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -14,8 +15,14 @@ export class AuthService {
 
   constructor(
     private authApiService: AuthApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { 
+    if (localStorage.getItem('auth_token')) {
+      this.isAuthenticated = true;
+      this.authenticatedSource.next(this.isAuthenticated);
+    }
+
     this.authApiService.loggedIn$.subscribe(
       loggedIn => {
         if(loggedIn === true){
@@ -112,6 +119,7 @@ export class AuthService {
     } else {
       this.messageService.addMessage('danger', 'Must be signed in to log out', 4000);
     }
+    this.router.navigate(['']);
   }
 
 }

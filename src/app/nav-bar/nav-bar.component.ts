@@ -20,8 +20,10 @@ export class NavBarComponent implements OnInit {
 
   constructor(private authService: AuthService) { 
     authService.isAuthenticated$.subscribe(
-      auth => this.isAuthenticated = auth
-    );
+      auth => {
+        this.isAuthenticated = auth
+        console.log('auth is ', this.isAuthenticated);
+      });
   }
 
   ngOnInit() {
