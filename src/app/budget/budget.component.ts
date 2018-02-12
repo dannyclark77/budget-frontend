@@ -51,8 +51,11 @@ export class BudgetComponent implements OnInit {
   }
 
   onGetBudgetCategories() {
-    this.budgetService.getBudgetCategories()
-    };
+    this.budgetService.getBudgetCategories();
+  }
+
+  deleteCategory(entryId) {
+    this.budgetService.deleteCategory(entryId);
   }
 
 }

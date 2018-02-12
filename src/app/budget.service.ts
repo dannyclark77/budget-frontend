@@ -15,4 +15,8 @@ export class BudgetService {
     this.api.getBudgetCategories();
   }
 
+  deleteCategory(categoryId) {
+    this.api.deleteCategory(categoryId);
+  }
+
 }

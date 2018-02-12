@@ -72,4 +72,22 @@ export class ApiService {
     )
   }
 
+  deleteCategory(categoryId) {
+    console.log('category id in api service is ', categoryId);
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    headers.append('Authorization', `Token ${token}`);
+    let options = new RequestOptions({ headers: headers });
+
+    const removeCategory = this.http
+      .delete(api_url + 'categories/' + categoryId, options)
+      .catch(this.handleError);
+
+    removeCategory.subscribe(
+      res => {
+        res = res.json();
+      }
+    )
+  }
+
 }
