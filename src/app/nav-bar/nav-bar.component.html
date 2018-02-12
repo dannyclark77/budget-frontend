@@ -5,10 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapsed" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf='isAuthenticated' class="nav-item" [routerLinkActive]="['active']">
         <a [routerLink]="['/purchase']" class="nav-link">Purchases</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf='isAuthenticated' class="nav-item" [routerLinkActive]="['active']">
         <a [routerLink]="['/budget']" class="nav-link">Budget</a>
       </li>
     </ul>
