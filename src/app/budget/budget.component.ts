@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BudgetService } from '../budget.service';
 import { ApiService } from '../api.service';
 
@@ -15,6 +15,7 @@ export class BudgetComponent implements OnInit {
   budgetform: FormGroup;
   budgetEntries;
   formData: any;
+  name = new FormControl('', Validators.required);
 
   constructor(
     private modalService: NgbModal,
@@ -31,7 +32,7 @@ export class BudgetComponent implements OnInit {
 
   ngOnInit() {
     this.budgetform = new FormGroup({
-      name: new FormControl(),
+      name: this.name,
       amount: new FormControl()
     });
     this.onGetBudgetCategories();

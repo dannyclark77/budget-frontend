@@ -50,9 +50,15 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="budgetform" (ngSubmit)="onNewCategory()">
-      <div class='form-group'>
+      <div class='form-group' [ngClass]="{
+        'has-danger': name.invalid && (name.dirty || name.touched),
+        'has-success': name.valid && (name.dirty || name.touched)
+      }">
         <label>Category Name</label>
-        <input type='text' class='form-control' formControlName='name' placeholder='Enter Category Name'>
+        <input type='text' class='form-control' formControlName='name' placeholder='Enter Category Name' required>
+        <div *ngIf="name.errors && (name.dirty || name.touched)">
+          <p *ngIf="name.errors.required">Purchase name is required</p>
+        </div>
       </div>
       <div class='form-group'>
         <label>Amount to Budget</label>
@@ -68,27 +74,27 @@
 </ng-template>
 
 <ng-template #patchModal let-c="close">
-    <div class="modal-header">
-      <h4 class="modal-title">Edit Budget Category</h4>
-      <button type="button" class="close" aria-label="Close" (click)="c()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="budgetform" (ngSubmit)="onUpdateCategory()">
-        <div class='form-group'>
-          <label>Category Name</label>
-          <input type='text' class='form-control' formControlName='name' [(ngModel)]='this.formData.name'>
-        </div>
-        <div class='form-group'>
-          <label>Amount to Budget</label>
-          <input type='number' class='form-control' formControlName='amount' [(ngModel)]='this.formData.amount'>
-        </div>
-        <div class="modal-footer">
-          <input type='submit' class='btn btn-primary' value='Submit'>
-          <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
-        </div>
-      </form>
-    </div>
-  
-  </ng-template>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Budget Category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="budgetform" (ngSubmit)="onUpdateCategory()">
+      <div class='form-group'>
+        <label>Category Name</label>
+        <input type='text' class='form-control' formControlName='name' [(ngModel)]='this.formData.name'>
+      </div>
+      <div class='form-group'>
+        <label>Amount to Budget</label>
+        <input type='number' class='form-control' formControlName='amount' [(ngModel)]='this.formData.amount'>
+      </div>
+      <div class="modal-footer">
+        <input type='submit' class='btn btn-primary' value='Submit'>
+        <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
