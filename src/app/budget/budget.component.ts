@@ -22,7 +22,7 @@ export class BudgetComponent implements OnInit {
   ) { 
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
-        this.budgetEntries = budgetEntries.categories;
+        this.budgetEntries = (budgetEntries as any).categories;
         console.log('budget data is ', this.budgetEntries);
       }
     )
@@ -33,7 +33,7 @@ export class BudgetComponent implements OnInit {
       name: new FormControl(),
       amount: new FormControl()
     });
-    this.onGetBudgetCategories()
+    this.onGetBudgetCategories();
   }
 
   onNewCategory() {

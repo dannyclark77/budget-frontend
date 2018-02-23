@@ -49,6 +49,7 @@ export class ApiService {
     createdCategory.subscribe(
       res => {
         console.log('res is ', res)
+        this.getBudgetCategories();
       }
     )
   }
@@ -86,6 +87,7 @@ export class ApiService {
     removeCategory.subscribe(
       res => {
         res = res.json();
+        this.getBudgetCategories();
       }
     )
   }
