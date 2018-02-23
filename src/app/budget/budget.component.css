@@ -23,3 +23,13 @@
 .content {
     text-align: center;
 }
+
+.delete:hover {
+    cursor: pointer;
+    color: red;
+}
+
+.update:hover {
+    cursor: pointer;
+    color: green;
+}

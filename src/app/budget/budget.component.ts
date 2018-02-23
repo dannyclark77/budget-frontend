@@ -14,6 +14,7 @@ export class BudgetComponent implements OnInit {
   modalRef: NgbModalRef;
   budgetform: FormGroup;
   budgetEntries;
+  formData: any;
 
   constructor(
     private modalService: NgbModal,
@@ -37,17 +38,15 @@ export class BudgetComponent implements OnInit {
   }
 
   onNewCategory() {
-    console.log('form submitted', this.budgetform.value);
     let data = this.budgetform.value;
-    console.log('data is ', data);
     this.budgetform.reset();
     this.modalRef.close();
     this.budgetService.newCategory(data);
   }
 
-  open(content) {
-    console.log('open modal', content);
-    this.modalRef = this.modalService.open(content);
+  open(modal, data) {
+    this.formData = data;
+    this.modalRef = this.modalService.open(modal);
   }
 
   onGetBudgetCategories() {
@@ -56,6 +55,13 @@ export class BudgetComponent implements OnInit {
 
   deleteCategory(entryId) {
     this.budgetService.deleteCategory(entryId);
+  }
+
+  onUpdateCategory() {
+    let data = this.budgetform.value;
+    this.budgetform.reset();
+    this.modalRef.close();
+    this.budgetService.updateCategory(data, this.formData.id);
   }
 
 }

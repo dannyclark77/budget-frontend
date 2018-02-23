@@ -92,4 +92,27 @@ export class ApiService {
     )
   }
 
+  updateCategory(info, id) {
+    console.log('category data is ', info);
+    console.log('category id is ', id);
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    const user_id = localStorage.getItem('user_id');
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", `Token ${token}`);
+    let options = new RequestOptions({ headers: headers });
+    const data = {category: {'name': info.name, 'amount': info.amount, 'user_id': user_id}}
+
+    const updatedCategory = this.http
+      .patch(api_url + 'categories/' + id, data, options)
+      .catch(this.handleError);
+
+    updatedCategory.subscribe(
+      res => {
+        res = res.json();
+        this.getBudgetCategories();
+      }
+    )
+  }
+
 }

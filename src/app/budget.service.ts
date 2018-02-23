@@ -7,7 +7,6 @@ export class BudgetService {
   constructor(private api: ApiService) { }
 
   newCategory(category) {
-    console.log('got to budget service ', category);
     this.api.createCategory(category);
   }
 
@@ -17,6 +16,10 @@ export class BudgetService {
 
   deleteCategory(categoryId) {
     this.api.deleteCategory(categoryId);
+  }
+
+  updateCategory(data, id) {
+    this.api.updateCategory(data, id);
   }
 
 }

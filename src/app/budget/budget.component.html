@@ -18,39 +18,77 @@
     <div class='percentage col-lg-2'>Percentage Spent</div>
     <div class='col-lg-1'></div>
   </div>
-  <div *ngFor="let entry of budgetEntries" class = 'row content'>
+  <div *ngFor="let entry of budgetEntries" class='row content'>
     <div class='col-lg-3'>{{entry.name}}</div>
-    <div class='col-lg-1'></div>
+    <div class='col-lg-1'>
+      <!-- <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownInterval" ngbDropdownToggle>Set Interval</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownInterval">
+          <button class="dropdown-item">Daily</button>
+          <button class="dropdown-item">Weekly</button>
+          <button class="dropdown-item">Monthly</button>
+          <button class="dropdown-item">Yearly</button>
+        </div>
+      </div> -->
+    </div>
     <div class='col-lg-3'>{{entry.amount}}</div>
     <div class='col-lg-2'></div>
     <div class='col-lg-2'></div>
-    <div class='col-lg-1'><i class="fa fa-lg fa-times-circle" (click)='deleteCategory(entry.id)'></i>
+    <div class='col-lg-1'>
+      <i class="fa fa-lg fa-edit update float-left" (click)="open(patchModal, entry)"></i>
+      <i class="fa fa-lg fa-times-circle delete float-right" (click)='deleteCategory(entry.id)'></i>
     </div>
   </div>
 </div>
 
 <ng-template #content let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Enter New Budget Category</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="budgetform" (ngSubmit)="onNewCategory()">
+      <div class='form-group'>
+        <label>Category Name</label>
+        <input type='text' class='form-control' formControlName='name' placeholder='Enter Category Name'>
+      </div>
+      <div class='form-group'>
+        <label>Amount to Budget</label>
+        <input type='number' class='form-control' formControlName='amount' placeholder='Enter Amount'>
+      </div>
+      <div class="modal-footer">
+        <input type='submit' class='btn btn-primary' value='Submit'>
+        <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template #patchModal let-c="close">
     <div class="modal-header">
-      <h4 class="modal-title">Enter New Budget Category</h4>
+      <h4 class="modal-title">Edit Budget Category</h4>
       <button type="button" class="close" aria-label="Close" (click)="c()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="budgetform" (ngSubmit)="onNewCategory()">
+      <form [formGroup]="budgetform" (ngSubmit)="onUpdateCategory()">
         <div class='form-group'>
           <label>Category Name</label>
-          <input type='text' class='form-control' formControlName='name' placeholder='Enter Category Name'>        
+          <input type='text' class='form-control' formControlName='name' [(ngModel)]='this.formData.name'>
         </div>
         <div class='form-group'>
           <label>Amount to Budget</label>
-          <input type='number' class='form-control' formControlName='amount' placeholder='Enter Amount'>       
+          <input type='number' class='form-control' formControlName='amount' [(ngModel)]='this.formData.amount'>
         </div>
         <div class="modal-footer">
-            <input type='submit' class='btn btn-primary' value='Submit'>                    
-            <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
-          </div>
+          <input type='submit' class='btn btn-primary' value='Submit'>
+          <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+        </div>
       </form>
     </div>
-   
+  
   </ng-template>
