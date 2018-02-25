@@ -20,6 +20,7 @@ export class PurchaseComponent implements OnInit {
     'Fun'
   ]
   budgetEntries;
+  purchases;
   name = new FormControl('', Validators.required);
 
   purchaseform: FormGroup;
@@ -35,6 +36,13 @@ export class PurchaseComponent implements OnInit {
         console.log('budget categories are ', this.budgetCategories)
       }
     )
+
+    apiService.purchases$.subscribe(
+      purchases => {
+        this.purchases = (purchases as any).purchases;
+        console.log('purchases are ', this.purchases);
+      }
+    )
   }
 
   ngOnInit() {
@@ -45,6 +53,7 @@ export class PurchaseComponent implements OnInit {
       category: new FormControl()
     });
     this.apiService.getBudgetCategories();
+    this.onGetPurchases();
   }
 
   onNewPurchase() {
@@ -58,6 +67,15 @@ export class PurchaseComponent implements OnInit {
   open(content) {
     console.log('open modal', content);
     this.modalRef = this.modalService.open(content)
+  }
+
+  onGetPurchases() {
+    this.purchaseService.getPurchases();
+  }
+
+  deletePurchase(purchaseId) {
+    console.log('purchase id is ', purchaseId);
+    this.purchaseService.deletePurchase(purchaseId);
   }
 
 }

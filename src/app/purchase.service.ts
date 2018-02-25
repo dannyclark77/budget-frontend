@@ -14,4 +14,12 @@ export class PurchaseService {
     this.api.createPurchase(data)
   }
 
+  getPurchases() {
+    this.api.getPurchases();
+  }
+
+  deletePurchase(purchaseId) {
+    this.api.deletePurchase(purchaseId);
+  }
+
 }

@@ -20,6 +20,15 @@
     text-align: center;
 }
 
+.content {
+    text-align: center;
+}
+
 .has-danger {
+    color: red;
+}
+
+.delete:hover {
+    cursor: pointer;
     color: red;
 }

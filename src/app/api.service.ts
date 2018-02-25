@@ -15,17 +15,33 @@ export class ApiService {
   private budgetEntries = new Subject();
   budgetEntries$ = this.budgetEntries.asObservable();
 
+  private purchases = new Subject();
+  purchases$ = this.purchases.asObservable();
+
   constructor(
     private http: Http
   ) { }
 
-  createPurchase(data) {
-    return this.http
-      .post(api_url + '/purchases', data)
-      .map(response => {
-        return response.json()
-      })
-      .catch(this.handleError)
+  createPurchase(purchase) {
+    console.log('create purchase data is ', purchase);
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    const user_id = localStorage.getItem('user_id');
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", `Token ${token}`);
+    let options = new RequestOptions({ headers: headers });
+    const data = {purchase: {'total': purchase.total, 'date': purchase.date, 'name': purchase.name, 'user_id': user_id, 'category_id': purchase.category}}
+
+    const createdPurchase = this.http
+      .post(api_url + 'purchases', data, options)
+      .catch(this.handleError);
+
+    createdPurchase.subscribe(
+      res => {
+        console.log('res is ', res)
+        this.getPurchases();
+      }
+    )
   }
 
   handleError (error: Response | any) {
@@ -111,6 +127,44 @@ export class ApiService {
       res => {
         res = res.json();
         this.getBudgetCategories();
+      }
+    )
+  }
+
+  getPurchases() {
+    const params = {user_id: localStorage.getItem('user_id')};
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    headers.append("Authorization", `Token ${token}`);
+    let options = new RequestOptions({ headers: headers, params: params });
+
+    const gotPurchases = this.http
+      .get(api_url + 'purchases', options)
+      .catch(this.handleError);
+
+    gotPurchases.subscribe(
+      res => {
+        res = res.json();
+        this.purchases.next(res);
+      }
+    )
+  }
+
+  deletePurchase(purchaseId) {
+    console.log('purchase id in api service is ', purchaseId);
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    headers.append('Authorization', `Token ${token}`);
+    let options = new RequestOptions({ headers: headers });
+
+    const removePurchase = this.http
+      .delete(api_url + 'purchases/' + purchaseId, options)
+      .catch(this.handleError);
+
+    removePurchase.subscribe(
+      res => {
+        res.json();
+        this.getPurchases();
       }
     )
   }

@@ -12,9 +12,20 @@
   </div>
   <div class='row header'>
     <div class='item col-lg-3'>Item</div>
-    <div class='date col-lg-3'>Date</div>
+    <div class='date col-lg-2'>Date</div>
     <div class='total col-lg-3'>Total</div>
     <div class='category col-lg-3'>Category</div>
+    <div class='col-lg-1'></div>
+  </div>
+  <div *ngFor="let purchase of purchases" class='row content'>
+    <div class='col-lg-3'>{{purchase.name}}</div>
+    <div class='col-lg-2'>{{purchase.date}}</div>
+    <div class='col-lg-3'>{{purchase.total}}</div>
+    <div class='col-lg-3'>{{purchase.category.name}}</div>
+    <div class='col-lg-1'>
+      <!-- <i class="fa fa-lg fa-edit update float-left" (click)="open(patchModal, entry)"></i> -->
+      <i class="fa fa-lg fa-times-circle delete float-right" (click)='deletePurchase(purchase.id)'></i>
+    </div>
   </div>
 </div>
 
@@ -48,7 +59,7 @@
       <div class='form-group'>
         <label>Budget Category</label>
         <select class='form-control' formControlName='category'>
-          <option *ngFor="let category of budgetCategories" [value]=category.name>
+          <option *ngFor="let category of budgetCategories" [value]=category.id>
             {{category.name}}
           </option>
         </select>
