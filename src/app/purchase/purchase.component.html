@@ -23,7 +23,7 @@
     <div class='col-lg-3'>{{purchase.total}}</div>
     <div class='col-lg-3'>{{purchase.category.name}}</div>
     <div class='col-lg-1'>
-      <!-- <i class="fa fa-lg fa-edit update float-left" (click)="open(patchModal, entry)"></i> -->
+      <i class="fa fa-lg fa-edit update float-left" (click)="open(patchPurchaseModal, purchase)"></i>
       <i class="fa fa-lg fa-times-circle delete float-right" (click)='deletePurchase(purchase.id)'></i>
     </div>
   </div>
@@ -55,6 +55,44 @@
       <div class='form-group'>
         <label>Purchase Date</label>
         <input type='date' class='form-control' formControlName='date' placeholder='Purchase Date'>
+      </div>
+      <div class='form-group'>
+        <label>Budget Category</label>
+        <select class='form-control' formControlName='category'>
+          <option *ngFor="let category of budgetCategories" [value]=category.id>
+            {{category.name}}
+          </option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <input type='submit' class='btn btn-primary' value='Submit'>
+        <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template #patchPurchaseModal let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Purchase</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="purchaseform" (ngSubmit)="onUpdatePurchase()">
+      <div class='form-group'>
+        <label>Purchase Name</label>
+        <input type='text' class='form-control' formControlName='name' [(ngModel)]='this.formData.name'>
+      </div>
+      <div class='form-group'>
+        <label>Purchase Total</label>
+        <input type='number' class='form-control' formControlName='total' [(ngModel)]='this.formData.total'>
+      </div>
+      <div class='form-group'>
+        <label>Purchase Date</label>
+        <input type='date' class='form-control' formControlName='date' [(ngModel)]='this.formData.date'>
       </div>
       <div class='form-group'>
         <label>Budget Category</label>

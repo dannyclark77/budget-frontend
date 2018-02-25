@@ -21,6 +21,7 @@ export class PurchaseComponent implements OnInit {
   ]
   budgetEntries;
   purchases;
+  formData: any;
   name = new FormControl('', Validators.required);
 
   purchaseform: FormGroup;
@@ -33,14 +34,12 @@ export class PurchaseComponent implements OnInit {
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
         this.budgetCategories = (budgetEntries as any).categories;
-        console.log('budget categories are ', this.budgetCategories)
       }
     )
 
     apiService.purchases$.subscribe(
       purchases => {
         this.purchases = (purchases as any).purchases;
-        console.log('purchases are ', this.purchases);
       }
     )
   }
@@ -57,16 +56,15 @@ export class PurchaseComponent implements OnInit {
   }
 
   onNewPurchase() {
-    console.log('form submitted', this.purchaseform.value);
     let data = this.purchaseform.value;
     this.purchaseform.reset();
     this.modalRef.close()
     this.purchaseService.newPurchase(data)
   }
 
-  open(content) {
-    console.log('open modal', content);
-    this.modalRef = this.modalService.open(content)
+  open(modal, data) {
+    this.formData = data;
+    this.modalRef = this.modalService.open(modal)
   }
 
   onGetPurchases() {
@@ -74,8 +72,14 @@ export class PurchaseComponent implements OnInit {
   }
 
   deletePurchase(purchaseId) {
-    console.log('purchase id is ', purchaseId);
     this.purchaseService.deletePurchase(purchaseId);
+  }
+
+  onUpdatePurchase() {
+    let data = this.purchaseform.value;
+    this.purchaseform.reset();
+    this.modalRef.close();
+    this.purchaseService.updatePurchase(data, this.formData.id);
   }
 
 }

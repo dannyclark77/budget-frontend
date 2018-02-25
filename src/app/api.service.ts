@@ -23,7 +23,6 @@ export class ApiService {
   ) { }
 
   createPurchase(purchase) {
-    console.log('create purchase data is ', purchase);
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     const user_id = localStorage.getItem('user_id');
@@ -38,7 +37,6 @@ export class ApiService {
 
     createdPurchase.subscribe(
       res => {
-        console.log('res is ', res)
         this.getPurchases();
       }
     )
@@ -90,7 +88,6 @@ export class ApiService {
   }
 
   deleteCategory(categoryId) {
-    console.log('category id in api service is ', categoryId);
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     headers.append('Authorization', `Token ${token}`);
@@ -109,8 +106,6 @@ export class ApiService {
   }
 
   updateCategory(info, id) {
-    console.log('category data is ', info);
-    console.log('category id is ', id);
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     const user_id = localStorage.getItem('user_id');
@@ -151,7 +146,6 @@ export class ApiService {
   }
 
   deletePurchase(purchaseId) {
-    console.log('purchase id in api service is ', purchaseId);
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     headers.append('Authorization', `Token ${token}`);
@@ -164,6 +158,27 @@ export class ApiService {
     removePurchase.subscribe(
       res => {
         res.json();
+        this.getPurchases();
+      }
+    )
+  }
+
+  updatePurchase(info, id) {
+    const headers = new Headers();
+    const token = localStorage.getItem('auth_token');
+    const user_id = localStorage.getItem('user_id');
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", `Token ${token}`);
+    let options = new RequestOptions({ headers: headers });
+    const data = {purchase: {'total': info.total, 'date': info.date, 'name': info.name, 'user_id': user_id, 'category_id': info.category}}
+
+    const updatedPurchase = this.http
+      .patch(api_url + 'purchases/' + id, data, options)
+      .catch(this.handleError)
+
+    updatedPurchase.subscribe(
+      res => {
+        res.json()
         this.getPurchases();
       }
     )

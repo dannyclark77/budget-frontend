@@ -22,4 +22,8 @@ export class PurchaseService {
     this.api.deletePurchase(purchaseId);
   }
 
+  updatePurchase(data, id) {
+    this.api.updatePurchase(data, id);
+  }
+
 }
