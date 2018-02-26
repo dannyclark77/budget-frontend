@@ -3,6 +3,7 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BudgetService } from '../budget.service';
 import { ApiService } from '../api.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-budget',
@@ -20,8 +21,9 @@ export class BudgetComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private budgetService: BudgetService,
-    private apiService: ApiService
-  ) { 
+    private apiService: ApiService,
+    private messageService: MessageService
+  ) {
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
         this.budgetEntries = (budgetEntries as any).categories;
@@ -33,16 +35,22 @@ export class BudgetComponent implements OnInit {
   ngOnInit() {
     this.budgetform = new FormGroup({
       name: this.name,
-      amount: new FormControl()
+      amount: new FormControl(),
+      interval: new FormControl()
     });
     this.onGetBudgetCategories();
   }
 
   onNewCategory() {
     let data = this.budgetform.value;
-    this.budgetform.reset();
-    this.modalRef.close();
-    this.budgetService.newCategory(data);
+    console.log('data is ', data);
+    if (data.name === null || data.amount === null || data.interval === null) {
+      this.messageService.addMessage('danger', 'Please fill in all form fields', 2000);
+    } else {
+      this.budgetform.reset();
+      this.modalRef.close();
+      this.budgetService.newCategory(data);
+    }
   }
 
   open(modal, data) {
