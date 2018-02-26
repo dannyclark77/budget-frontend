@@ -59,7 +59,8 @@
       <div class='form-group'>
         <label>Budget Category</label>
         <select class='form-control' formControlName='category'>
-          <option *ngFor="let category of budgetCategories" [value]=category.id>
+          <option [ngValue]='null'>Select a category</option>
+          <option *ngFor="let category of budgetCategories" [ngValue]=category.id>
             {{category.name}}
           </option>
         </select>
@@ -95,9 +96,10 @@
         <input type='date' class='form-control' formControlName='date' [(ngModel)]='this.formData.date'>
       </div>
       <div class='form-group'>
-        <label>Budget Category</label>
-        <select class='form-control' formControlName='category'>
-          <option *ngFor="let category of budgetCategories" [value]=category.id>
+        <label for='category'>Budget Category</label>
+        <select class='form-control' id='category' [(ngModel)]='this.formData.category.id' formControlName='category'>
+          <option [ngValue]='null'>Select a category</option>
+          <option *ngFor="let category of budgetCategories" [ngValue]=category.id>
             {{category.name}}
           </option>
         </select>
