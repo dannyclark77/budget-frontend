@@ -17,7 +17,6 @@ export class BudgetService {
       category.amount = category.amount / 12
       category.interval = 'Monthly'
     }
-    console.log('Final budget service category is ', category)
     this.api.createCategory(category);
   }
 

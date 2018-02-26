@@ -17,6 +17,7 @@ export class BudgetComponent implements OnInit {
   budgetEntries;
   formData: any;
   name = new FormControl('', Validators.required);
+  interval = 'Monthly';
 
   constructor(
     private modalService: NgbModal,
@@ -27,7 +28,21 @@ export class BudgetComponent implements OnInit {
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
         this.budgetEntries = (budgetEntries as any).categories;
-        console.log('budget data is ', this.budgetEntries);
+        if (this.interval === 'Daily') {
+          this.budgetEntries.forEach(entry => {
+            entry.amount = (entry.amount / 30).toFixed(2);
+          });
+        }
+        if (this.interval === 'Weekly') {
+          this.budgetEntries.forEach(entry => {
+            entry.amount = (entry.amount / 4).toFixed(2);
+          });
+        }
+        if (this.interval === 'Yearly') {
+          this.budgetEntries.forEach(entry => {
+            entry.amount = (entry.amount * 12).toFixed(2);
+          });
+        }
       }
     )
   }
@@ -73,6 +88,11 @@ export class BudgetComponent implements OnInit {
     this.budgetform.reset();
     this.modalRef.close();
     this.budgetService.updateCategory(data, this.formData.id);
+  }
+
+  setInterval(interval) {
+    this.interval = interval;
+    this.onGetBudgetCategories();
   }
 
 }
