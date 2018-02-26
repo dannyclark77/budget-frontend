@@ -32,3 +32,8 @@
     cursor: pointer;
     color: red;
 }
+
+.update:hover {
+    cursor: pointer;
+    color: green;
+}
