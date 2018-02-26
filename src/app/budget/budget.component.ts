@@ -43,6 +43,11 @@ export class BudgetComponent implements OnInit {
             entry.amount = (entry.amount * 12).toFixed(2);
           });
         }
+        if (this.interval === 'Monthly') {
+          this.budgetEntries.forEach(entry => {
+            entry.amount = (entry.amount * 1).toFixed(2);
+          })
+        }
       }
     )
   }
