@@ -46,7 +46,9 @@ export class BudgetComponent implements OnInit {
   }
 
   open(modal, data) {
+    this.budgetform.reset();
     this.formData = data;
+    console.log('form data is ', this.formData);
     this.modalRef = this.modalService.open(modal);
   }
 

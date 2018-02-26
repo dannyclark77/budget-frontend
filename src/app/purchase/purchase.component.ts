@@ -63,6 +63,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   open(modal, data) {
+    this.purchaseform.reset();
     this.formData = data;
     this.modalRef = this.modalService.open(modal)
   }
