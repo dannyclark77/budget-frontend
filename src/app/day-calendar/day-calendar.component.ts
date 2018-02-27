@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { BudgetService } from '../budget.service';
 
 @Component({
   selector: 'app-day-calendar',
@@ -7,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DayCalendarComponent implements OnInit {
 
-  model;
+  date: NgbDateStruct;
 
-  constructor() { }
+  constructor(private budgetService: BudgetService) { }
 
   ngOnInit() {
+  }
+
+  dateDisplay() {
+    if (typeof this.date === 'object') {
+      this.budgetService.newDate(this.date);
+    }
   }
 
 }

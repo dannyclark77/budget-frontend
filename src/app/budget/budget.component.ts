@@ -18,6 +18,7 @@ export class BudgetComponent implements OnInit {
   formData: any;
   name = new FormControl('', Validators.required);
   interval = 'Monthly';
+  date;
 
   constructor(
     private modalService: NgbModal,
@@ -48,6 +49,13 @@ export class BudgetComponent implements OnInit {
             entry.amount = (entry.amount * 1).toFixed(2);
           })
         }
+      }
+    )
+
+    budgetService.date$.subscribe(
+      date => {
+        this.date = date;
+        console.log('budget component date is ', this.date);
       }
     )
   }

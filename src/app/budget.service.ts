@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class BudgetService {
+
+  private date = new Subject();
+  date$ = this.date.asObservable();
 
   constructor(private api: ApiService) { }
 
@@ -30,6 +34,12 @@ export class BudgetService {
 
   updateCategory(data, id) {
     this.api.updateCategory(data, id);
+  }
+
+  newDate(date) {
+    if (date !== undefined) {
+      this.date.next(date);
+    }
   }
 
 }
