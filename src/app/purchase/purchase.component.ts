@@ -18,8 +18,7 @@ export class PurchaseComponent implements OnInit {
     'Food',
     'Utilities',
     'Fun'
-  ]
-  budgetEntries;
+  ];
   purchases;
   formData: any;
   name = new FormControl('', Validators.required);
@@ -40,6 +39,9 @@ export class PurchaseComponent implements OnInit {
     apiService.purchases$.subscribe(
       purchases => {
         this.purchases = (purchases as any).purchases;
+        this.purchases.forEach(purchase => {
+          purchase.total = (purchase.total * 1).toFixed(2)
+        });
       }
     )
   }

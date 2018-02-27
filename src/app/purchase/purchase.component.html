@@ -20,7 +20,7 @@
   <div *ngFor="let purchase of purchases" class='row content'>
     <div class='col-lg-3'>{{purchase.name}}</div>
     <div class='col-lg-2'>{{purchase.date}}</div>
-    <div class='col-lg-3'>{{purchase.total}}</div>
+    <div class='col-lg-3'>${{purchase.total}}</div>
     <div class='col-lg-3'>{{purchase.category.name}}</div>
     <div class='col-lg-1'>
       <i class="fa fa-lg fa-edit update float-left" (click)="open(patchPurchaseModal, purchase)"></i>
