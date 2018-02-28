@@ -22,6 +22,8 @@ export class BudgetComponent implements OnInit {
   date;
   now = new Date();
   purchases;
+  startDate;
+  endDate;
 
   constructor(
     private modalService: NgbModal,
@@ -37,18 +39,15 @@ export class BudgetComponent implements OnInit {
           this.budgetEntries.forEach(entry => {
             entry.amount = (entry.amount / 30).toFixed(2);
           });
-        }
-        if (this.interval === 'Weekly') {
+        } else if (this.interval === 'Weekly') {
           this.budgetEntries.forEach(entry => {
             entry.amount = (entry.amount / 4).toFixed(2);
           });
-        }
-        if (this.interval === 'Yearly') {
+        } else if (this.interval === 'Yearly') {
           this.budgetEntries.forEach(entry => {
             entry.amount = (entry.amount * 12).toFixed(2);
           });
-        }
-        if (this.interval === 'Monthly') {
+        } else if (this.interval === 'Monthly') {
           this.budgetEntries.forEach(entry => {
             entry.amount = (entry.amount * 1).toFixed(2);
           })
@@ -58,10 +57,24 @@ export class BudgetComponent implements OnInit {
 
     budgetService.date$.subscribe(
       date => {
-        console.log('date was ', this.date);
         this.date = date;
-        console.log('budget component date is ', this.date);
-        console.log ('now is ', this.now.getFullYear());
+        console.log('date is ', date);
+        if (this.interval === 'Daily') {
+          this.startDate = date;
+          this.endDate = date;
+        } else if (this.interval === 'Weekly') {
+          // Need to set startDate and endDate based on beginning of week and end of week
+        } else if (this.interval === 'Monthly') {
+          this.startDate = {year: this.date.year, month: this.date.month, day: 1};
+          console.log('startdate is ', this.startDate);
+          this.endDate = {year: this.date.year, month: this.date.month, day: 31};
+          console.log('end date is ', this.endDate);
+          // console.log('date is ', new Date(2018, 2, 12)); THIS LINE IS SOLUTION TO DATE CHALLENGES
+        } else if (this.interval === 'Yearly') {
+          this.startDate = {year: this.date.year, month: 1, day: 1};
+          this.endDate = {year: this.date.year, month: 12, day: 31};
+        }
+        // this.purchaseService.getPurchases(this.startDate, this.endDate);        
       }
     )
 

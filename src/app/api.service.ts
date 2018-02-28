@@ -127,7 +127,7 @@ export class ApiService {
   }
 
   getPurchases(date) {
-    const params = {user_id: localStorage.getItem('user_id'), startdate: date, enddate: '2018-2-27'};
+    const params = {user_id: localStorage.getItem('user_id'), startdate: date, enddate: '2018-2-28'};
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     headers.append("Authorization", `Token ${token}`);

@@ -37,9 +37,7 @@ export class BudgetService {
   }
 
   newDate(date) {
-    if (date !== undefined) {
-      this.date.next(date);
-    }
+    this.date.next(date);
   }
 
 }

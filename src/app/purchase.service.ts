@@ -15,13 +15,10 @@ export class PurchaseService {
   }
 
   getPurchases(date) {
-    console.log('purchase service date is ', date);
     if (date.day === undefined || date.day === null) {
       date.day = 1;
     }
-    console.log('new purchase service date is ', date);
     date = `${date.year}-${date.month}-${date.day}`;
-    console.log('interpolated date is ', date);
     this.api.getPurchases(date);
   }
 
