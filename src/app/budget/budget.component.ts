@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BudgetService } from '../budget.service';
 import { ApiService } from '../api.service';
 import { MessageService } from '../message.service';
+import { PurchaseService } from '../purchase.service';
 
 @Component({
   selector: 'app-budget',
@@ -19,12 +20,15 @@ export class BudgetComponent implements OnInit {
   name = new FormControl('', Validators.required);
   interval = 'Monthly';
   date;
+  now = new Date();
+  purchases;
 
   constructor(
     private modalService: NgbModal,
     private budgetService: BudgetService,
     private apiService: ApiService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private purchaseService: PurchaseService
   ) {
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
@@ -54,8 +58,20 @@ export class BudgetComponent implements OnInit {
 
     budgetService.date$.subscribe(
       date => {
+        console.log('date was ', this.date);
         this.date = date;
         console.log('budget component date is ', this.date);
+        console.log ('now is ', this.now.getFullYear());
+      }
+    )
+
+    apiService.purchases$.subscribe(
+      purchases => {
+        this.purchases = (purchases as any).purchases;
+        console.log('purchases is ', this.purchases);
+        // this.purchases.forEach(purchase => {
+        //   purchase.total = (purchase.total * 1).toFixed(2)
+        // });
       }
     )
   }
@@ -67,6 +83,8 @@ export class BudgetComponent implements OnInit {
       interval: new FormControl()
     });
     this.onGetBudgetCategories();
+    this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1};
+    this.purchaseService.getPurchases(this.date);
   }
 
   onNewCategory() {

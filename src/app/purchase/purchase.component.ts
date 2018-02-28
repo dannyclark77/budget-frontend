@@ -3,6 +3,7 @@ import { PurchaseService } from '../purchase.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap/';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
+import { BudgetService } from '../budget.service';
 
 @Component({
   selector: 'app-purchase',
@@ -22,13 +23,15 @@ export class PurchaseComponent implements OnInit {
   purchases;
   formData: any;
   name = new FormControl('', Validators.required);
-
+  date;
+  now = new Date();
   purchaseform: FormGroup;
 
   constructor(
     private purchaseService: PurchaseService,
     private modalService: NgbModal,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private budgetService: BudgetService
   ) { 
     apiService.budgetEntries$.subscribe(
       budgetEntries => {
@@ -44,6 +47,15 @@ export class PurchaseComponent implements OnInit {
         });
       }
     )
+
+    budgetService.date$.subscribe(
+      date => {
+        console.log('date was ', this.date);
+        this.date = date;
+        console.log('purchase component date is ', this.date);
+        console.log ('now is ', this.now.getFullYear());
+      }
+    )
   }
 
   ngOnInit() {
@@ -53,8 +65,9 @@ export class PurchaseComponent implements OnInit {
       date: new FormControl(),
       category: new FormControl()
     });
+    this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1};    
     this.apiService.getBudgetCategories();
-    this.onGetPurchases();
+    this.onGetPurchases(this.date);
   }
 
   onNewPurchase() {
@@ -70,8 +83,8 @@ export class PurchaseComponent implements OnInit {
     this.modalRef = this.modalService.open(modal)
   }
 
-  onGetPurchases() {
-    this.purchaseService.getPurchases();
+  onGetPurchases(date) {
+    this.purchaseService.getPurchases(date);
   }
 
   deletePurchase(purchaseId) {
