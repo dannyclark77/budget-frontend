@@ -58,30 +58,14 @@ export class BudgetComponent implements OnInit {
     budgetService.date$.subscribe(
       date => {
         this.date = date;
-        console.log('date is ', date);
-        if (this.interval === 'Daily') {
-          this.startDate = date;
-          this.endDate = date;
-        } else if (this.interval === 'Weekly') {
-          // Need to set startDate and endDate based on beginning of week and end of week
-        } else if (this.interval === 'Monthly') {
-          this.startDate = {year: this.date.year, month: this.date.month, day: 1};
-          console.log('startdate is ', this.startDate);
-          this.endDate = {year: this.date.year, month: this.date.month, day: 31};
-          console.log('end date is ', this.endDate);
-          // console.log('date is ', new Date(2018, 2, 12)); THIS LINE IS SOLUTION TO DATE CHALLENGES
-        } else if (this.interval === 'Yearly') {
-          this.startDate = {year: this.date.year, month: 1, day: 1};
-          this.endDate = {year: this.date.year, month: 12, day: 31};
-        }
-        // this.purchaseService.getPurchases(this.startDate, this.endDate);        
+        this.setDates();
       }
     )
 
     apiService.purchases$.subscribe(
       purchases => {
         this.purchases = (purchases as any).purchases;
-        console.log('purchases is ', this.purchases);
+        console.log('budget purchases is ', this.purchases);
         // this.purchases.forEach(purchase => {
         //   purchase.total = (purchase.total * 1).toFixed(2)
         // });
@@ -96,7 +80,7 @@ export class BudgetComponent implements OnInit {
       interval: new FormControl()
     });
     this.onGetBudgetCategories();
-    this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1};
+    this.date = { year: this.now.getFullYear(), month: this.now.getMonth() + 1 };
     this.purchaseService.getPurchases(this.date);
   }
 
@@ -137,6 +121,43 @@ export class BudgetComponent implements OnInit {
   setInterval(interval) {
     this.interval = interval;
     this.onGetBudgetCategories();
+  }
+
+  setDates() {
+    if (this.interval === 'Daily') {
+      this.startDate = this.date;
+      this.endDate = this.date;
+    } else if (this.interval === 'Weekly') {
+      this.setWeeklyDates();
+    } else if (this.interval === 'Monthly') {
+      this.startDate = { year: this.date.year, month: this.date.month, day: 1 };
+      let lastDayOfMonth = new Date(this.date.year, this.date.month, 0).getDate();
+      this.endDate = { year: this.date.year, month: this.date.month, day: lastDayOfMonth };
+    } else if (this.interval === 'Yearly') {
+      this.startDate = { year: this.date.year, month: 1, day: 1 };
+      this.endDate = { year: this.date.year, month: 12, day: 31 };
+    }
+    // this.purchaseService.getPurchases(this.startDate, this.endDate); 
+  }
+
+  setWeeklyDates() {
+    let numDay = new Date(this.date.year, this.date.month - 1, this.date.day).getDay();
+    if (this.date.day - numDay < 1) {
+      let newNum = numDay - this.date.day
+      let sdate = new Date(this.date.year, this.date.month - 1, 0 - newNum);
+      this.startDate = { year: sdate.getFullYear(), month: sdate.getMonth() + 1, day: sdate.getDate() }
+    } else {
+      this.startDate = { year: this.date.year, month: this.date.month, day: this.date.day - numDay };
+    }
+    let edate = new Date(this.date.year, this.date.month, 0);
+    let newNum = 6 - numDay - (edate.getDate() - this.date.day);
+    if (newNum > 0 && edate.getMonth() !== 11) {
+      this.endDate = { year: this.date.year, month: this.date.month + 1, day: newNum };
+    } else if (newNum > 0 && edate.getMonth() === 11) {
+      this.endDate = { year: this.date.year + 1, month: 1, day: newNum }
+    } else {
+      this.endDate = { year: this.date.year, month: this.date.month, day: this.date.day + 6 - numDay };
+    }
   }
 
 }
