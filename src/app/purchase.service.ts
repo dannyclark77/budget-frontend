@@ -14,12 +14,14 @@ export class PurchaseService {
     this.api.createPurchase(data)
   }
 
-  getPurchases(date) {
-    if (date.day === undefined || date.day === null) {
-      date.day = 1;
+  getPurchases(startdate, enddate) {
+    if (enddate.day === undefined || enddate.day === null) {
+      enddate.day = 1;
     }
-    date = `${date.year}-${date.month}-${date.day}`;
-    this.api.getPurchases(date);
+    console.log('purchase service dates are ', startdate, enddate);
+    startdate = `${startdate.year}-${startdate.month}-${startdate.day}`;
+    enddate = `${enddate.year}-${enddate.month}-${enddate.day}`;    
+    this.api.getPurchases(startdate, enddate);
   }
 
   deletePurchase(purchaseId) {

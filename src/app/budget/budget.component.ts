@@ -58,7 +58,7 @@ export class BudgetComponent implements OnInit {
     budgetService.date$.subscribe(
       date => {
         this.date = date;
-        this.setDates();
+        this.setRange();
       }
     )
 
@@ -81,7 +81,7 @@ export class BudgetComponent implements OnInit {
     });
     this.onGetBudgetCategories();
     this.date = { year: this.now.getFullYear(), month: this.now.getMonth() + 1 };
-    this.purchaseService.getPurchases(this.date);
+    this.setRange();
   }
 
   onNewCategory() {
@@ -123,12 +123,12 @@ export class BudgetComponent implements OnInit {
     this.onGetBudgetCategories();
   }
 
-  setDates() {
+  setRange() {
     if (this.interval === 'Daily') {
       this.startDate = this.date;
       this.endDate = this.date;
     } else if (this.interval === 'Weekly') {
-      this.setWeeklyDates();
+      this.setWeeklyRange();
     } else if (this.interval === 'Monthly') {
       this.startDate = { year: this.date.year, month: this.date.month, day: 1 };
       let lastDayOfMonth = new Date(this.date.year, this.date.month, 0).getDate();
@@ -137,10 +137,10 @@ export class BudgetComponent implements OnInit {
       this.startDate = { year: this.date.year, month: 1, day: 1 };
       this.endDate = { year: this.date.year, month: 12, day: 31 };
     }
-    // this.purchaseService.getPurchases(this.startDate, this.endDate); 
+    this.purchaseService.getPurchases(this.startDate, this.endDate); 
   }
 
-  setWeeklyDates() {
+  setWeeklyRange() {
     let numDay = new Date(this.date.year, this.date.month - 1, this.date.day).getDay();
     if (this.date.day - numDay < 1) {
       let newNum = numDay - this.date.day

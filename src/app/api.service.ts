@@ -37,7 +37,7 @@ export class ApiService {
 
     createdPurchase.subscribe(
       res => {
-        this.getPurchases();
+        this.getPurchases('2000-01-01', '2020-01-01');
       }
     )
   }
@@ -126,8 +126,8 @@ export class ApiService {
     )
   }
 
-  getPurchases(date) {
-    const params = {user_id: localStorage.getItem('user_id'), startdate: date, enddate: '2018-2-28'};
+  getPurchases(startdate, enddate) {
+    const params = {user_id: localStorage.getItem('user_id'), startdate: startdate, enddate: enddate};
     const headers = new Headers();
     const token = localStorage.getItem('auth_token');
     headers.append("Authorization", `Token ${token}`);
@@ -159,7 +159,7 @@ export class ApiService {
     removePurchase.subscribe(
       res => {
         res.json();
-        this.getPurchases();
+        this.getPurchases('2000-01-01', '2020-01-01');
       }
     )
   }
@@ -180,7 +180,7 @@ export class ApiService {
     updatedPurchase.subscribe(
       res => {
         res.json()
-        this.getPurchases();
+        this.getPurchases('2000-01-01', '2020-01-01');
       }
     )
   }

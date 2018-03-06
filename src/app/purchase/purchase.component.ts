@@ -67,7 +67,7 @@ export class PurchaseComponent implements OnInit {
     });
     this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1};    
     this.apiService.getBudgetCategories();
-    this.onGetPurchases(this.date);
+    this.onGetPurchases();
   }
 
   onNewPurchase() {
@@ -83,8 +83,8 @@ export class PurchaseComponent implements OnInit {
     this.modalRef = this.modalService.open(modal)
   }
 
-  onGetPurchases(date) {
-    this.purchaseService.getPurchases(date);
+  onGetPurchases() {
+    this.purchaseService.getPurchases({year: 2000, month: 1, day: 1}, this.date);
   }
 
   deletePurchase(purchaseId) {
