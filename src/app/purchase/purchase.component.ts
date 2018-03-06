@@ -65,7 +65,7 @@ export class PurchaseComponent implements OnInit {
       date: new FormControl(),
       category: new FormControl()
     });
-    this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1};    
+    this.date = {year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate()};    
     this.apiService.getBudgetCategories();
     this.onGetPurchases();
   }
