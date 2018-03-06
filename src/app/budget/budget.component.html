@@ -29,8 +29,9 @@
   <div *ngFor="let entry of budgetEntries" class='row content'>
     <div class='col-lg-3'>{{entry.name}}</div>
     <div class='col-lg-3'>${{entry.amount}}</div>
-    <div class='col-lg-3'></div>
-    <div class='col-lg-2'></div>
+    <div *ngIf='purchaseCategoryTotals[entry.name]' class='col-lg-3'>${{purchaseCategoryTotals[entry.name] | number:'1.0-2'}}</div>
+    <div *ngIf='!purchaseCategoryTotals[entry.name]' class='col-lg-3'>$0</div>
+    <div class='col-lg-2'>{{purchaseCategoryTotals[entry.name]/entry.amount | percent}}</div>
     <div class='col-lg-1'>
       <i class="fa fa-lg fa-edit update float-left" (click)="open(patchModal, entry)"></i>
       <i class="fa fa-lg fa-times-circle delete float-right" (click)='deleteCategory(entry.id)'></i>

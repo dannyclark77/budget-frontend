@@ -5,6 +5,7 @@ import { BudgetService } from '../budget.service';
 import { ApiService } from '../api.service';
 import { MessageService } from '../message.service';
 import { PurchaseService } from '../purchase.service';
+import { PercentPipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-budget',
@@ -24,6 +25,7 @@ export class BudgetComponent implements OnInit {
   purchases;
   startDate;
   endDate;
+  purchaseCategoryTotals = {};
 
   constructor(
     private modalService: NgbModal,
@@ -66,9 +68,14 @@ export class BudgetComponent implements OnInit {
       purchases => {
         this.purchases = (purchases as any).purchases;
         console.log('budget purchases is ', this.purchases);
-        // this.purchases.forEach(purchase => {
-        //   purchase.total = (purchase.total * 1).toFixed(2)
-        // });
+        this.purchaseCategoryTotals = {};
+        this.purchases.forEach(purchase => {
+          if (!this.purchaseCategoryTotals[purchase.category.name]) {
+            this.purchaseCategoryTotals[purchase.category.name] = purchase.total * 1;
+          } else {
+            this.purchaseCategoryTotals[purchase.category.name] += (purchase.total * 1);
+          }
+        });
       }
     )
   }
@@ -121,6 +128,7 @@ export class BudgetComponent implements OnInit {
   setInterval(interval) {
     this.interval = interval;
     this.onGetBudgetCategories();
+    this.setRange();
   }
 
   setRange() {
@@ -137,7 +145,7 @@ export class BudgetComponent implements OnInit {
       this.startDate = { year: this.date.year, month: 1, day: 1 };
       this.endDate = { year: this.date.year, month: 12, day: 31 };
     }
-    this.purchaseService.getPurchases(this.startDate, this.endDate); 
+    this.purchaseService.getPurchases(this.startDate, this.endDate);
   }
 
   setWeeklyRange() {
