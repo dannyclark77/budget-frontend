@@ -28,7 +28,7 @@
   </div>
   <div *ngFor="let entry of budgetEntries" class='row content'>
     <div class='col-lg-3'>{{entry.name}}</div>
-    <div class='col-lg-3'>${{entry.amount}}</div>
+    <div class='col-lg-3'>${{entry.amount | number: '1.0-2'}}</div>
     <div *ngIf='purchaseCategoryTotals[entry.name]' class='col-lg-3'>${{purchaseCategoryTotals[entry.name] | number:'1.0-2'}}</div>
     <div *ngIf='!purchaseCategoryTotals[entry.name]' class='col-lg-3'>$0</div>
     <div class='col-lg-2'>{{purchaseCategoryTotals[entry.name]/entry.amount | percent}}</div>
@@ -98,6 +98,16 @@
       <div class='form-group'>
         <label>Amount to Budget</label>
         <input type='number' class='form-control' formControlName='amount' [(ngModel)]='this.formData.amount'>
+      </div>
+      <div class='form-group'>
+        <label>Interval for Amount Budgeted</label>
+        <select class='form-control' formControlName='interval'>
+          <option [ngValue]='null'>Select Interval</option>
+          <option>Daily</option>
+          <option>Weekly</option>
+          <option>Monthly</option>
+          <option>Yearly</option>
+        </select>
       </div>
       <div class="modal-footer">
         <input type='submit' class='btn btn-primary' value='Submit'>

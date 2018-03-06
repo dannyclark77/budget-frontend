@@ -33,6 +33,16 @@ export class BudgetService {
   }
 
   updateCategory(data, id) {
+    if (data.interval === 'Daily') {
+      data.amount = data.amount * 30
+      data.interval = 'Monthly'
+    } else if (data.interval === 'Weekly') {
+      data.amount = data.amount * 4
+      data.interval = 'Monthly'
+    } else if (data.interval === 'Yearly') {
+      data.amount = data.amount / 12
+      data.interval = 'Monthly'
+    }
     this.api.updateCategory(data, id);
   }
 

@@ -39,19 +39,19 @@ export class BudgetComponent implements OnInit {
         this.budgetEntries = (budgetEntries as any).categories;
         if (this.interval === 'Daily') {
           this.budgetEntries.forEach(entry => {
-            entry.amount = (entry.amount / 30).toFixed(2);
+            entry.amount = (entry.amount / 30);
           });
         } else if (this.interval === 'Weekly') {
           this.budgetEntries.forEach(entry => {
-            entry.amount = (entry.amount / 4).toFixed(2);
+            entry.amount = (entry.amount / 4);
           });
         } else if (this.interval === 'Yearly') {
           this.budgetEntries.forEach(entry => {
-            entry.amount = (entry.amount * 12).toFixed(2);
+            entry.amount = (entry.amount * 12);
           });
         } else if (this.interval === 'Monthly') {
           this.budgetEntries.forEach(entry => {
-            entry.amount = (entry.amount * 1).toFixed(2);
+            entry.amount = (entry.amount * 1);
           })
         }
       }
@@ -87,7 +87,7 @@ export class BudgetComponent implements OnInit {
       interval: new FormControl()
     });
     this.onGetBudgetCategories();
-    this.date = { year: this.now.getFullYear(), month: this.now.getMonth() + 1 };
+    this.date = { year: this.now.getFullYear(), month: this.now.getMonth() + 1, day: this.now.getDate() };
     this.setRange();
   }
 
